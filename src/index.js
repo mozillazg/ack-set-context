@@ -18,22 +18,7 @@ async function run() {
     let clusterId = core.getInput('cluster-id', { required: false });
     let clusterType = core.getInput('cluster-type', { required: false });
     let privateIpAddress = core.getBooleanInput('private-ip-address', { required: false });
-    let temporaryDurationMinutes = core.getInput('temporary-duration-minutes', { required: false });
     let apiEndpoint = core.getInput('api-endpoint', { required: false });
-    if (temporaryDurationMinutes !== "") {
-        const parsedMinutes = parseInt(temporaryDurationMinutes, 10);
-        if (Number.isNaN(parsedMinutes)) {
-            core.setFailed('temporary-duration-minutes must be an integer between 15 and 4320');
-            return;
-        }
-        if (parsedMinutes < 15 || parsedMinutes > 4320) {
-            core.setFailed('The validity period of the temporary kubeconfig file must be between 15 and 4320 minutes');
-            return;
-        }
-        temporaryDurationMinutes = parsedMinutes;
-    } else {
-        temporaryDurationMinutes = null;
-    }
 
     try {
         let kubeconfig = ""
@@ -53,9 +38,6 @@ async function run() {
                 apiVersion: '2015-12-15'
             });
             let query = {};
-            if (temporaryDurationMinutes !== null) {
-                query.TemporaryDurationMinutes = temporaryDurationMinutes;
-            }
             if (privateIpAddress) {
                 query.PrivateIpAddress = true;
             }

@@ -22,10 +22,6 @@ inputs:
     description: 'Specifies whether to obtain the kubeconfig file that is used to connect to the cluster over the internal network'
     default: 'false'
     required: false
-  temporary-duration-minutes:
-    description: 'The validity period of the temporary kubeconfig file. Unit: minutes. Valid values: 15 to 4320 (3 days). Only working when cluster-type is `ACK`'
-    default: ''
-    required: false
   api-endpoint:
     description: 'The endpoint of the OpenAPI of Alibaba Cloud. e.g. `https://cs.aliyuncs.com` for ACK, `https://adcp.aliyuncs.com` for ACK One'
     default: ''
